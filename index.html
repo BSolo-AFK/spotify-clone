@@ -1,39 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <title>Drum Kit</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Arvo"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Player</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="music-player">
+      <nav>
+        <div class="circle">
+          <img src="photos\back.png" alt="Back button" class="back-button"/>
+        </div>
+        <div class="circle">
+          <img src="photos\menu.png" alt="Menu button" class="menu-button"/>
+        </div>
+      </nav>
+      <img src="photos\image.png" class="song-img" alt="Song artwork" />
+      <h1 class="songname">Song Name</h1>
+      <p class="artist">Artist Name</p>
 
-  </head>
+      <audio controls id="song">
+        <source src="spanishsongs\Calle 13 - Atrevete te te (Explicit).mp3" type="audio/mpeg">
+      </audio>
+              <div class="circle">
+          <img src="photos\shuffle.png" alt="shuffle" class="shuffle-button"/>
+        </div>
+      <input type="range" value="0" id="progress">
 
-  <body>
-    <header>
-<div class="menu_side">
-  <div class="home"><a href="link to pic" target="_blank">
-  <img src="" alt="Description of the image" style="margin: red solid 2px;">
-</a></div>
-  <h1> Playlist</h1>
-  <div class="playlist">
-    <h4 class="active"><span></span>Playlist</h4>
-    <h4 class="active"><span></span>Last List</h4>
-    <h4 class="active"><span></span>Recommended</h4>
+      <div class="controls">
+        <div class="circle">
+          <img src="photos\backbutton.png" alt="back" class="shuffle-buttonprevious-button"/>
+        </div>
+        <div class="circle">
+          <img src="photos\playbutton.png" alt="play&pause" class="play-button" onclick="playPause"/>
+        </div>
+        <div class="circle">
+          <img src="photos\forwardbutton.png" alt="next" class="next-button"/>
+        </div>
+
+      </div>
+    </div>
   </div>
-  <div class="menu-songs">
-  <li class="songItem"><span>01</span></li>
-  </div>
-</div>
-<div class="song_side"></div>
-<div class="master_play"></div>
-    </header>
-  </body>
-
   <script src="index.js" charset="utf-8"></script>
+</body>
 </html>
