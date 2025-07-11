@@ -11,33 +11,31 @@
     <div class="music-player">
       <nav>
         <div class="circle">
-          <img src="photos\back.png" alt="Back button" class="back-button"/>
+          <img src="photos/back.png" alt="Back button" class="back-button"/>
         </div>
         <div class="circle">
-          <img src="photos\menu.png" alt="Menu button" class="menu-button"/>
+          <img src="photos/menu.png" alt="Menu button" class="menu-button"/>
         </div>
       </nav>
-      <img src="photos\image.png" class="song-img" alt="Song artwork" />
+      <img src="photos/image.png" class="song-img" alt="Song artwork" />
       <h1 class="songname">Song Name</h1>
       <p class="artist">Artist Name</p>
 
-      <audio controls id="song">
-        <source src="spanishsongs\Calle 13 - Atrevete te te (Explicit).mp3" type="audio/mpeg">
-      </audio>
+      <audio id="song"></audio>
               <div class="circle">
-          <img src="photos\shuffle.png" alt="shuffle" class="shuffle-button"/>
+          <img src="photos/shuffle.png" alt="shuffle" class="shuffle-button"/>
         </div>
       <input type="range" value="0" id="progress">
 
       <div class="controls">
         <div class="circle">
-          <img src="photos\backbutton.png" alt="back" class="shuffle-buttonprevious-button"/>
+          <img src="photos/backbutton.png" alt="back" class="previous-button" />
         </div>
         <div class="circle">
-          <img src="photos\playbutton.png" alt="play&pause" class="play-button" onclick="playPause"/>
+          <img src="photos/playbutton.png" alt="play&pause" class="play-button" onclick="playPause()"/>
         </div>
         <div class="circle">
-          <img src="photos\forwardbutton.png" alt="next" class="next-button"/>
+          <img src="photos/forwardbutton.png" alt="next" class="next-button"/>
         </div>
 
       </div>
