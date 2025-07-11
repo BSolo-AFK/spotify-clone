@@ -1,46 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Music Player</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Player</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
     <div class="music-player">
-      <nav>
-        <div class="circle">
-          <img src="photos/back.png" alt="Back button" class="back-button"/>
-        </div>
-        <div class="circle">
-          <img src="photos/menu.png" alt="Menu button" class="menu-button"/>
-        </div>
-      </nav>
-      <img src="photos/image.png" class="song-img" alt="Song artwork" />
-      <h1 class="songname">Song Name</h1>
-      <p class="artist">Artist Name</p>
+      <audio id="audio-player" src="songs\JP Saxe, Julia Michaels - If The World Was Ending (Lyrics).mp3"></audio>
+      <!-- Album Art -->
+      <div class="album-art">
+        <i class="fas fa-music"></i>
+      </div>
 
-      <audio id="song"></audio>
-              <div class="circle">
-          <img src="photos/shuffle.png" alt="shuffle" class="shuffle-button"/>
-        </div>
-      <input type="range" value="0" id="progress">
+      <!-- Track Info -->
+      <div class="track-info">
+        <h2>Song Title</h2>
+        <p>Artist Name</p>
+      </div>
 
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress"></div>
+        </div>
+        <div class="time-info">
+          <span class="current-time">0:00</span>
+          <span class="duration">3:45</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
       <div class="controls">
-        <div class="circle">
-          <img src="photos/backbutton.png" alt="back" class="previous-button" />
-        </div>
-        <div class="circle">
-          <img src="photos/playbutton.png" alt="play&pause" class="play-button" onclick="playPause()"/>
-        </div>
-        <div class="circle">
-          <img src="photos/forwardbutton.png" alt="next" class="next-button"/>
-        </div>
+        <button class="control-btn shuffle-btn" title="Shuffle">
+          <i class="fas fa-random"></i>
+        </button>
+        <button class="control-btn prev-btn" title="Previous">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="control-btn play-pause" title="Play/Pause">
+          <i class="fas fa-play"></i>
+        </button>
+        <button class="control-btn next-btn" title="Next">
+          <i class="fas fa-step-forward"></i>
+        </button>
+        <button class="control-btn repeat-btn" title="Repeat">
+          <i class="fas fa-redo"></i>
+        </button>
+      </div>
 
+      <!-- Volume Control -->
+      <div class="volume-control">
+        <div class="theme-toggle">
+          <button class="control-btn theme-btn" title="Toggle Theme">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+          </button>
+        </div>
+        <i class="fas fa-volume-up"></i>
+        <input
+          type="range"
+          class="volume-slider"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.7"
+        />
       </div>
     </div>
-  </div>
-  <script src="index.js" charset="utf-8"></script>
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
