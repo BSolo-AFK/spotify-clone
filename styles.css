@@ -1,103 +1,364 @@
-*{
-	margin: 0;
-	padding: 0;
-	font-family: 'poppins', sans-serif;
-	box-sizing: border-box;
-}
-.container{
-	width: 100%;
-	height: 100vh;
-	background-color: rgb(82, 81, 81);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.music-player{
-	width: 400px;
-	background: bisque;
-	padding: 25px 35px;
-	text-align: center;
-}
-nav{
-	display: flex;
-	justify-content: space-between;
-	margin: 30px;
-}
-nav .circle{
-	border-radius:50% ;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	background: #fff;
-	color: #f53192;
-	box-shadow: 0 5px 10px rgba(248, 28, 28, 0.22);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-}
-nav img{
-	width: 30px;
-	height: 30px;
-}
-.song-img{
-	width: 220px;
-	border-radius: 50%;
-	border: 8px solid #fff;
-	box-shadow: #f53192 0px 10px 50px;
-}
-.music-player h1 {
-	font-size: 20px;
-	font-weight: 400;
-	color: #333;
-	margin-top: 20px;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#progress{
-	-webkit-appearance: none;
-	width: 100%;
-	height: 6px;
-	background: #694b5e;
-	border-radius: 5px;
-	cursor: pointer;
-	margin: 40px 0px;
+body {
+  background-color: #f5f5f5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
 }
-#progress::-webkit-slider-thumb {
-	-webkit-appearance: none;
-	background: #f53192;
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	border: 8px solid #fff;
-	box-shadow: 0px 5px 5px rgba(248, 28, 28, 0.22);
+
+/* Music Player Container */
+.music-player {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: auto;
+  max-width: 400px;
+  padding: 25px;
+  text-align: center;
 }
-.controls{
-	display:flex;
-	justify-content: center;
-	align-items: center;
+
+/* Album Art */
+.album-art {
+  width: 170px;
+  height: 200px;
+  border-radius: 10px;
+  margin: 0 auto 25px;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
-.controls div{
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	background: #fff;
-	box-shadow: 0px 10px 20px rgba(248, 28, 28, 0.22);
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	color: #f53192;
-	margin: 20px ;
+
+.album-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.controls div img{
-	width: 30px;
-	height: 30px;
+
+.album-art i {
+  font-size: 50px;
+  color: #888;
 }
-.controls div:nth-child(2){
-transform: scale(2);
+
+/* Track Info */
+.track-info {
+  margin-bottom: 25px;
 }
-.music-player .circle img {
-	width: 30px;
-	height: 30px;
+
+.track-info h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.track-info p {
+  font-size: 16px;
+  color: #777;
+}
+
+/* Progress Bar */
+.progress-container {
+  margin-bottom: 25px;
+}
+
+.progress-bar {
+  height: 6px;
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4a76fd;
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.time-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #888;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  margin: 0 15px;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.2s;
+}
+
+.control-btn:hover {
+  color: #4a76fd;
+}
+
+.control-btn.play-pause {
+  background-color: #4a76fd;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.control-btn.play-pause:hover {
+  background-color: #3a66ed;
+  color: white;
+}
+
+/* Volume Control */
+.volume-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.volume-control i {
+  margin-right: 10px;
+  color: #777;
+}
+
+.volume-slider {
+  width: 70%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #4a76fd;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .music-player {
+    padding: 20px;
+  }
+
+  .album-art {
+    width: 150px;
+    height: 150px;
+  }
+
+  .control-btn {
+    margin: 0 10px;
+  }
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: blue;
+  color: white;
+  text-align: center;
+}
+
+.repeat-btn.active {
+  color: #4a76fd;
+}
+/* Album Art with fallback */
+.album-art {
+  position: relative;
+}
+
+.album-art img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s;
+}
+
+.album-art i {
+  position: relative;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.album-art.has-image i {
+  display: none;
+}
+
+.album-art.has-image:hover i {
+  display: flex;
+  opacity: 0.8;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.album-art.loading i {
+  animation: spin 1s linear infinite;
+}
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark-mode .music-player {
+  background-color: #1e1e1e;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .track-info h2 {
+  color: #ffffff;
+}
+
+body.dark-mode .track-info p {
+  color: #aaaaaa;
+}
+
+body.dark-mode .progress-bar {
+  background-color: #333;
+}
+
+body.dark-mode .control-btn {
+  color: #aaa;
+}
+
+body.dark-mode .control-btn:hover {
+  color: #4a76fd;
+}
+
+body.dark-mode .album-art {
+  background-color: #333;
+}
+
+body.dark-mode .volume-slider {
+  background: #333;
+}
+
+body.dark-mode footer {
+  background-color: #0a0a3d;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  display: flex;
+  justify-content: center;
+}
+
+.theme-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .theme-btn i.fa-moon {
+  display: none;
+}
+
+body.dark-mode .theme-btn i.fa-sun {
+  display: inline-block;
+  color: #ffcc00;
+}
+
+.theme-btn i.fa-sun {
+  display: none;
+}
+/* Add this to the top of your CSS file */
+:root {
+  --bg-color: #f5f5f5;
+  --player-bg: white;
+  --text-color: #333;
+  --secondary-text: #777;
+  --progress-bg: #e0e0e0;
+  --footer-bg: blue;
+  --icon-color: #555;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.music-player {
+  background-color: var(--player-bg);
+  transition: background-color 0.3s ease;
+}
+
+.track-info h2 {
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.track-info p {
+  color: var(--secondary-text);
+  transition: color 0.3s ease;
+}
+
+.progress-bar {
+  background-color: var(--progress-bg);
+  transition: background-color 0.3s ease;
+}
+
+.control-btn {
+  color: var(--icon-color);
+  transition: color 0.3s ease;
+}
+
+footer {
+  background-color: var(--footer-bg);
+  transition: background-color 0.3s ease;
+}
+
+/* Update dark mode styles to use variables */
+body.dark-mode {
+  --bg-color: #121212;
+  --player-bg: #1e1e1e;
+  --text-color: #f5f5f5;
+  --secondary-text: #aaaaaa;
+  --progress-bg: #333;
+  --footer-bg: #0a0a3d;
+  --icon-color: #aaa;
 }

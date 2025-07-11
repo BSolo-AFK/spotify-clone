@@ -1,255 +1,161 @@
-let progress = document.getElementById("progress");
-let playButton = document.querySelector(".play-button");
-let song = new Audio(); // create an audio element once
-let currentSongIndex = 0;
-const songs = [
-  // English songs
-  {
-    name: "Low",
-    artist: "Flo Rida ft. T-Pain",
-    src: "songs/Flo Rida – Low (feat. T-Pain).mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Somebody That I Used To Know",
-    artist: "Gotye ft. Kimbra",
-    src: "songs/Gotye – Somebody That I Used To Know.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "If The World Was Ending",
-    artist: "JP Saxe & Julia Michaels",
-    src: "songs/JP Saxe, Julia Michaels – If The World Was Ending.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Rude",
-    artist: "MAGIC!",
-    src: "songs/MAGIC! - Rude.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Sugar",
-    artist: "Maroon 5",
-    src: "songs/Maroon 5 - Sugar.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Hey Ya!",
-    artist: "OutKast",
-    src: "songs/OutKast - Hey Ya!.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Never Gonna Give You Up",
-    artist: "Rick Astley",
-    src: "songs/Rick Astley - Never Gonna Give You Up.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Beautiful Girls",
-    artist: "Sean Kingston",
-    src: "songs/Sean Kingston - Beautiful Girls.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Meet Me Halfway",
-    artist: "The Black Eyed Peas",
-    src: "songs/The Black Eyed Peas - Meet Me Halfway.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Pump It",
-    artist: "The Black Eyed Peas",
-    src: "songs/The Black Eyed Peas - Pump It.mp3",
-    img: "photos/image.png"
-  },
 
-  // Spanish songs
+let currentTrackIndex = 0;
+let isPlaying = false;
+const audioPlayer = document.getElementById("audio-player");
+
+// Playlist
+const playList = [
   {
-    name: "Atrevete te te",
-    artist: "Calle 13",
-    src: "spanishsongs/Calle 13 - Atrevete te te (Explicit).mp3",
-    img: "photos/image.png"
+    title: "If The World Was Ending",
+    artist: "JP Saxe & Julia Michaels",
+    src: "songs/JP Saxe, Julia Michaels - If The World Was Ending (Lyrics).mp3",
+    image: "photos/jp image.jpg"},
+  {
+     title: "Low",
+    artist: "Flo Rida ft. T-Pain",
+    src: "songs/Flo Rida - Low (feat. T-Pain) [from Step Up 2 The Streets O.S.T.  Mail On Sunday] (Official Video).mp3",
+      image: "photos/low.jpg"
   },
   {
-    name: "Guatauba",
-    artist: "Unknown",
-    src: "spanishsongs/Guatauba.mp3",
-    img: "photos/image.png"
+     title: "Somebody That I Used To Know",
+    artist: "Gotye ft. Kimbra",
+    src: "songs/Gotye - Somebody That I Used To Know (feat. Kimbra) [Official Music Video].mp3",
+      image: "photos/gotye.jpg"
   },
-  {
-    name: "Yo Quiero Bailar",
-    artist: "Ivy Queen",
-    src: "spanishsongs/Ivy Queen - Yo Quiero Bailar.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Mochila de Amor",
-    artist: "Miguelito y Divino",
-    src: "spanishsongs/MIGUELITO Y DIVINO MOCHILA DE AMOR.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Pa' Que Retozen",
-    artist: "Tego Calderón",
-    src: "spanishsongs/Pa' Que Retozen.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Down",
-    artist: "R.K.M, Ken-Y",
-    src: "spanishsongs/R.K.M, Ken-Y - Down.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Sensacion Del Bloque",
-    artist: "Randy & De La Ghetto",
-    src: "spanishsongs/Randy & De La Ghetto - Sensacion Del Bloque.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Te Suelto el Pelo",
-    artist: "Unknown",
-    src: "spanishsongs/Te Suelto el Pelo.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "Tiburón",
-    artist: "Proyecto Uno",
-    src: "spanishsongs/TIBURÓN - Proyecto Uno.mp3",
-    img: "photos/image.png"
-  },
-  {
-    name: "El Doctorado",
-    artist: "Tony Dize",
-    src: "spanishsongs/Tony Dize - El Doctorado.mp3",
-    img: "photos/image.png"
-  }
 ];
 
-function playSong() {
-  let audio = new Audio("path/to/your/audiofile.mp3");
-  audio.play();
+// Theme Toggle Functionality
+$(".theme-btn").click(function () {
+  $("body").toggleClass("dark-mode");
+
+  // Save preference to localStorage
+  const isDarkMode = $("body").hasClass("dark-mode");
+  localStorage.setItem("darkMode", isDarkMode);
+});
+
+// Check for saved theme preference
+if (localStorage.getItem("darkMode") === "true") {
+  $("body").addClass("dark-mode");
 }
+// Load a track
+function loadTrack(index) {
+  const track = playList[index];
+  audioPlayer.src = track.src;
+  $(".track-info h2").text(track.title);
+  $(".track-info p").text(track.artist);
 
-function shuffleSong() {
-  const randomIndex = Math.floor(Math.random() * songs.length);
-  currentSongIndex = randomIndex;
-  loadSong(currentSongIndex);
-  song.play();
-  playButton.src = "photos/pausebutton.png";
-}
+  const albumArt = $(".album-art");
+  albumArt
+    .removeClass("has-image")
+    .addClass("loading")
+    .html('<i class="fas fa-spinner"></i>');
 
-song.onloadedmetadata = function () {
-  progress.max = song.duration;
-  progress.value = song.currentTime;
-};
-
-song.ontimeupdate = function () {
-  progress.value = song.currentTime;
-};
-
-progress.oninput = function () {
-  song.currentTime = progress.value;
-};
-
-function playPause() {
-  if (song.paused) {
-    song.play();
-    playButton.src = "photos/pausebutton.png";
+  if (track.image) {
+    const img = new Image();
+    img.src = track.image;
+    img.onload = function () {
+      albumArt.removeClass("loading").addClass("has-image")
+        .html(`<img src="${track.image}" alt="${track.title}">
+                    <i class="fas fa-music"></i>`);
+    };
+    img.onerror = function () {
+      albumArt.removeClass("loading").html('<i class="fas fa-music"></i>');
+    };
   } else {
-    song.pause();
-    playButton.src = "photos/playbutton.png";
+    albumArt.removeClass("loading").html('<i class="fas fa-music"></i>');
   }
+
+  if (isPlaying) audioPlayer.play();
 }
 
-// const test = new Audio
+// Update progress bar
+function updateProgress() {
+  const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+  $(".progress").css("width", progress + "%");
 
-// let currentIndex = 0;
-// let isPlaying = false;
+  // Update time display
+  const currentMinutes = Math.floor(audioPlayer.currentTime / 60);
+  const currentSeconds = Math.floor(audioPlayer.currentTime % 60)
+    .toString()
+    .padStart(2, "0");
+  $(".current-time").text(`${currentMinutes}:${currentSeconds}`);
 
-// const audio = document.getElementById("song");
-// const playBtn = document.querySelector(".play-button");
-// const prevBtn = document.querySelector(".previous-button");
-// const nextBtn = document.querySelector(".next-button");
-// const shuffleBtn = document.querySelector(".shuffle-button");
+  const durationMinutes = Math.floor(audioPlayer.duration / 60);
+  const durationSeconds = Math.floor(audioPlayer.duration % 60)
+    .toString()
+    .padStart(2, "0");
+  $(".duration").text(`${durationMinutes}:${durationSeconds}`);
+}
 
-// const songTitle = document.querySelector(".songname");
-// const songArtist = document.querySelector(".artist");
-// const songImg = document.querySelector(".song-img");
-// const progress = document.getElementById("progress");
+// Play/Pause toggle
+function togglePlay() {
+  if (isPlaying) {
+    audioPlayer.pause();
+    $(".play-pause i").removeClass("fa-pause").addClass("fa-play");
+  } else {
+    audioPlayer.play();
+    $(".play-pause i").removeClass("fa-play").addClass("fa-pause");
+  }
+  isPlaying = !isPlaying;
+}
 
-// function loadSong(index) {
-//   const song = songs[index];
-//   audio.src = song.src;
-//   songTitle.textContent = song.name;
-//   songArtist.textContent = song.artist;
-//   songImg.src = song.img;
-//   audio.load();
-// }
+// Event listeners
+audioPlayer.addEventListener("timeupdate", updateProgress);
+audioPlayer.addEventListener("ended", nextTrack);
 
-// function playSong() {
-//   playBtn.play().then(() => {
-//     isPlaying = true;
-//     playBtn.src = "photos/pausebutton.png";
-//   }).catch(err => {
-//     console.error("Error playing song:", err);
-//   });
-// }
+// Progress bar click to seek
+$(".progress-bar").click(function (e) {
+  const percent = e.offsetX / $(this).width();
+  audioPlayer.currentTime = percent * audioPlayer.duration;
+});
 
-// function pauseSong() {
-//   audio.pause();
-//   isPlaying = false;
-//   playBtn.src = "photos/playbutton.png";
-// }
+// Volume control
+$(".volume-slider").on("input", function () {
+  audioPlayer.volume = $(this).val();
+});
 
-// function playPause() {
-//   if (isPlaying) {
-//     pauseSong();
-//   } else {
-//     playSong();
+// Button controls
+$(".play-pause").click(togglePlay);
+$(".prev-btn").click(prevTrack);
+$(".next-btn").click(nextTrack);
+$(".shuffle-btn").click(shuffle);
+$(".repeat-btn").click(toggleRepeat);
+
+// Control functions
+function prevTrack() {
+  currentTrackIndex =
+    (currentTrackIndex - 1 + playList.length) % playList.length;
+  loadTrack(currentTrackIndex);
+}
+
+function nextTrack() {
+  currentTrackIndex = (currentTrackIndex + 1) % playList.length;
+  loadTrack(currentTrackIndex);
+}
+// function shuffle(a) {
+//   for (let i = a.length - 1; i > 0; i--) {
+//     const j = Math.floor(Math.random() * (i + 1));
+//     [a[i], a[j]] = [a[j], a[i]];
 //   }
+//   return a;
 // }
 
-// function nextSong() {
-//   currentIndex = (currentIndex + 1) % songs.length;
-//   loadSong(currentIndex);
-//   if (isPlaying) playSong();
-// }
+function shuffle() {
+  let newIndex;
+  do {
+    newIndex = Math.floor(Math.random() * playList.length);
+  } while (newIndex === currentTrackIndex && playList.length > 1);
 
-// function prevSong() {
-//   currentIndex = (currentIndex - 1 + songs.length) % songs.length;
-//   loadSong(currentIndex);
-//   if (isPlaying) playSong();
-// }
+  currentTrackIndex = newIndex;
+  loadTrack(currentTrackIndex);
+}
 
-// function shuffleSong() {
-//   let newIndex;
-//   do {
-//     newIndex = Math.floor(Math.random() * songs.length);
-//   } while (newIndex === currentIndex);
+let isRepeat = false;
+function toggleRepeat() {
+  isRepeat = !isRepeat;
+  $(".repeat-btn").toggleClass("active", isRepeat);
+  audioPlayer.loop = isRepeat;
+}
 
-//   currentIndex = newIndex;
-//   loadSong(currentIndex);
-//   if (isPlaying) playSong();
-// }
-
-// audio.ontimeupdate = () => {
-//   if (audio.duration) {
-//     progress.value = (audio.currentTime / audio.duration) * 100;
-//   }
-// };
-
-// progress.oninput = () => {
-//   audio.currentTime = (progress.value / 100) * audio.duration;
-// };
-
-// // --- Add event listeners ---
-// playBtn.addEventListener("click", playPause);
-// nextBtn.addEventListener("click", nextSong);
-// prevBtn.addEventListener("click", prevSong);
-// shuffleBtn.addEventListener("click", shuffleSong);
-
-// // --- Initialize ---
-// loadSong(currentIndex);
+// Initialize player
+loadTrack(currentTrackIndex);
